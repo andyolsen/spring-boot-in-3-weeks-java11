@@ -1,17 +1,15 @@
-apiserver:
-  address: 192.168.1.100
-  port: 8080
+spring:
+  config:
+    activate:
+      on-profile: UK
+txfmt:
+  currency: GBP
+  dtformat: dd-MM-yyyy HH:mm:ss
 ---
 spring:
   config:
     activate:
-      on-profile: development
-apiserver:
-  address: 127.0.0.1
----
-spring:
-  config:
-    activate:
-      on-profile: production
-apiserver:
-  address: 192.168.1.120
+      on-profile: US
+txfmt:
+  currency: USD
+  dtformat: MM-dd-yyyy HH:mm:ss

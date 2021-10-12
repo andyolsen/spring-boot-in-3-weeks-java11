@@ -45,7 +45,7 @@ public class SpelBean {
 
 	// Using SpEL in autowired methods (also see setUserName() method below).
 	private String userName;
-	
+
 	@Autowired
 	public void setUserName(@Value("#{systemProperties['user.name'] }") String n) {
 		this.userName = n;
@@ -80,5 +80,31 @@ public class SpelBean {
 
 	public void displayUserName() {
 		System.out.printf("\nUser name : %s\n", userName);
+	}
+
+	// Bits for end-of-chapter exercise...
+	@Value("#{ timestamp.creationDate }")
+	private LocalDate localDate;
+
+	@Value("#{ timestamp.creationTime }")
+	private LocalTime localTime;
+
+	private String displayTimestampMode;
+
+	@Autowired
+	public SpelBean(ApplicationArguments args) {
+		if (args.containsOption("displayTimestampMode"))
+			displayTimestampMode = args.getOptionValues("displayTimestampMode").get(0);
+		else
+			displayTimestampMode = "none";
+	}
+
+	public void displayDateAndOrTime() {
+
+		if (displayTimestampMode.equals("date") || displayTimestampMode.equals("both"))
+			System.out.printf("Creation date: %s\n", localDate);
+
+		if (displayTimestampMode.equals("time") || displayTimestampMode.equals("both"))
+			System.out.printf("Creation time: %s\n", localTime);
 	}
 }

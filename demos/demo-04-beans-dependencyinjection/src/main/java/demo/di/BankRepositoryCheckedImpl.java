@@ -1,12 +1,21 @@
 package demo.di;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BankRepositoryImpl implements BankRepository {
+public class BankRepositoryCheckedImpl implements BankRepository {
+
+	@Value("${threshold:1000}")		// Might be overriden in application.properties
+	private double threshold;
 
 	@Override
 	public void update(int accountId, double amount) {
-		System.out.printf("\tIn RepositoryImpl.update(%d, %.2f)\n", accountId, amount);
+		if (Math.abs(amount) > threshold) {
+			System.out.printf("\tIn RepositoryImpl.update(%d, %.2f) - REJECTED ************ \n", accountId, amount);
+		}
+		else {
+			System.out.printf("\tIn RepositoryImpl.update(%d, %.2f)\n", accountId, amount);
+		}
 	}
 }

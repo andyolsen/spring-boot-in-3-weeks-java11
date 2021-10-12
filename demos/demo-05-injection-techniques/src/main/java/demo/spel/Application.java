@@ -17,5 +17,8 @@ public class Application {
 		bean.displayCollectionIndexing();
 		bean.displayCollectionSelectionProjection();
 		bean.displayUserName();
+
+		// For end-of-chapter exercise...
+		bean.displayDateAndOrTime();
 	}
 }
