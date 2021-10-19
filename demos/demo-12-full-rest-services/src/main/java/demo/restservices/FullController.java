@@ -18,6 +18,20 @@ public class FullController {
 	@Autowired
 	private ProductRepository repository;
 
+	// New endpoint for the exercise:
+	@PutMapping(value="/products/{id}/increasePriceBy/{amount}")
+	public ResponseEntity<Void> increasePriceBy(@PathVariable long id, @PathVariable double amount) {
+		Product p = repository.getById(id);
+		if (p == null) {
+			return ResponseEntity.notFound().build();
+		}
+		else {
+			p.setPrice(p.getPrice() + amount);
+			repository.update(p);
+			return ResponseEntity.ok().build();
+		}
+	}
+
 	@GetMapping(value="/products/{id}", produces={"application/json","application/xml"})
 	public ResponseEntity<Product> getProductById(@PathVariable long id) {
 		Product p = repository.getById(id);
