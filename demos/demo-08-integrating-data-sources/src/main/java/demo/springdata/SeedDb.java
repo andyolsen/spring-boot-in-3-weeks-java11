@@ -9,12 +9,12 @@ import javax.annotation.PostConstruct;
 @Component
 public class SeedDb {
 
-	@Autowired
-	JdbcTemplate jdbcTemplate;
-	
-	@PostConstruct
-    public void init() {
-		jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"James", 21000, "London"});
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    @PostConstruct
+    public void initEmployees() {
+        jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"James", 21000, "London"});
         jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"Marie", 22000, "Edinburgh"});
         jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"Peter", 23000, "Belfast"});
         jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"Sally", 24000, "Cardiff"});
@@ -30,5 +30,12 @@ public class SeedDb {
         jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"Darel", 122000, "Edinburgh"});
         jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"Benji", 123000, "Belfast"});
         jdbcTemplate.update("insert into EMPLOYEES (name, salary, region) values (?, ?, ?)", new Object[]{"Carys", 124000, "Cardiff"});
+    }
+
+    @PostConstruct
+    public void initCars() {
+        jdbcTemplate.update("insert into CARS (registration_number, make, model) values (?, ?, ?)", new Object[]{"AAA 111", "Bugatti", "Divo"});
+        jdbcTemplate.update("insert into CARS (registration_number, make, model) values (?, ?, ?)", new Object[]{"BBB 222", "Lamborghini", "Sian"});
+        jdbcTemplate.update("insert into CARS (registration_number, make, model) values (?, ?, ?)", new Object[]{"CCC 333", "Volkswagen", "Beetle"});
     }
 }
