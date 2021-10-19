@@ -13,7 +13,14 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository repository;
-	
+
+	// New method, for the exercise.
+	public void doHandsomePayRise() {
+		int rowsAffected = repository.payRiseToEmployeesInRegion(5_000_000, "London");
+		System.out.printf("%d employees given handsome pay rise\n", rowsAffected);
+		displayEmployees("All employees after pay rise: ", repository);
+	}
+
 	public void queryEntities() {
 		
 		try {

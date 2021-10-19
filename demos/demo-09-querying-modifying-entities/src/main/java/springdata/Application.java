@@ -12,6 +12,8 @@ public class Application {
 		ApplicationContext context = SpringApplication.run(Application.class, args);
 
 		EmployeeService service = context.getBean(EmployeeService.class);
+
+		service.doHandsomePayRise();
 		service.queryEntities();
 		service.modifyEntities();
 	}

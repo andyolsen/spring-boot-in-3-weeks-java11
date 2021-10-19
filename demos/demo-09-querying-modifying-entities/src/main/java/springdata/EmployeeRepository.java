@@ -16,6 +16,20 @@ public class EmployeeRepository {
 	@PersistenceContext
 	protected EntityManager entityManager;
 
+	// New method, for the exercise.
+	@Transactional
+	public int payRiseToEmployeesInRegion(double payRise, String region) {
+
+		String q = "update Employee set dosh=dosh+:p where region=:r";
+
+		Query query = entityManager.createQuery(q);
+		query.setParameter("p", payRise);
+		query.setParameter("r", region);
+
+		int numRowsAffected = query.executeUpdate();
+		return numRowsAffected;
+	}
+
 	public Employee getEmployee(long employeeId) {
 		return entityManager.find(Employee.class, employeeId);
 	}
