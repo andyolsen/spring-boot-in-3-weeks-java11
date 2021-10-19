@@ -20,6 +20,29 @@ public class SimpleController {
 		catalog.put(4L, new Product(4L, "Bugatti Divo", 4_000_000));
 	}
 
+	// New endpoint for the exercise:
+	@GetMapping(value="/count", produces={"application/json","application/xml"})
+	public ResponseEntity<Integer> getCountOfProducts() {
+		int count = catalog.size();
+		return ResponseEntity.ok().body(count);
+	}
+
+	// New endpoint for the exercise:
+	@GetMapping(value="/averagePrice", produces={"application/json","application/xml"})
+	public ResponseEntity<Double> getAveragePriceOfProducts(
+			@RequestParam(value="min", required=false, defaultValue="0.0") double min,
+			@RequestParam(value="max", required=false, defaultValue="99999999.99") double max
+	) {
+		double averagePrice = catalog.values()
+				.stream()
+				.mapToDouble(p -> p.getPrice())
+				.filter(price -> price >= min && price <= max )
+				.average()
+				.orElse(0.0);
+
+		return ResponseEntity.ok().body(averagePrice);
+	}
+
 	@GetMapping(value="/productsV1", produces={"application/json","application/xml"})
 	public Collection<Product> getProductsV1() {
 		return catalog.values();
@@ -46,10 +69,5 @@ public class SimpleController {
 											  .filter(p -> p.getPrice() > min)
 											  .collect(Collectors.toList());
 		return ResponseEntity.ok().body(products);
-	}
-
-	@GetMapping(value="/count", produces={"application/json","application/xml"})
-	public ResponseEntity<Integer> getCount() {
-		return ResponseEntity.ok().body(catalog.values().size());
 	}
 }
