@@ -14,7 +14,14 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository repository;
-	
+
+	// New method for the exercise:
+	public void useCustomModifierMethod() {
+		int rowsAffected = repository.deleteInSalaryRange(120_000, 150_000);
+		System.out.printf("%d rows deleted in salary range 120k - 150k\n", rowsAffected);
+		displayEmployees("Employees after deletions", repository.findAll());
+	}
+
 	public void useStandardRepoMethods() {
 
 		// Insert an employee.

@@ -10,7 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface EmployeeRepository extends CrudRepository<Employee,Long> {
-    
+
+	// New query for the exercise:
+	@Modifying(clearAutomatically=true)
+	@Transactional
+	@Query("delete from Employee e where e.dosh >= ?1 and e.dosh <= ?2")
+	int deleteInSalaryRange(double from, double to);
+
 	List<Employee> findByRegion(String region);
     
 	@Query("select e from Employee e where e.dosh >= ?1 and e.dosh <= ?2")
