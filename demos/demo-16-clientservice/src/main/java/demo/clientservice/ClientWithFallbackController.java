@@ -1,5 +1,6 @@
 package demo.clientservice;
 
+import jdk.jfr.DataAmount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
